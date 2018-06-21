@@ -103,7 +103,7 @@ contexts:
     - meta_include_prototype: false
     - include: comment_begin
     - match: '{{bullet}}'
-      scope: entity.name.section
+      scope: entity.name.section.coq
     - match: '\b{{kw_qed}}{{b}}'
       scope: keyword.coq
       pop: true
@@ -113,24 +113,48 @@ contexts:
       scope: support.function.coq
     - match: '\b{{tactic}}{{b}}'
       scope: support.function.coq
-      push: term
+      push: tactic_term
     - match: '{{ident}}'
       scope: variable.function.coq
-      push: term
+      push: tactic_term
     - match: '{{integer}}'
       scope: constant.numeric.integer
+    - match: ';'
+      scope: punctuation.separator.coq
+      set: tactic_sequence
+    - match: '\['
+      scope: invalid.illegal.stray-bracket-begin
     - match: '\('
       scope: punctuation.section.parens.begin.coq
       push: tactic_paren
     - include: illegal_punct
-  tactic_paren:
-    - match: '{{tactic}}'
-      scope: support.function.coq
-      push: term_paren
-    - match: '{{ident}}'
-      scope: variable.function.coq
-      push: term_paren
+  tactic_sequence:
+    - meta_scope: meta.proof.coq
+    - meta_include_prototype: false
+    - match: '{{dot}}'
+      set: tactic
+    - match: '\['
+      scope: punctuation.section.braces.begin.coq
+      push: tactic_local
     - include: tactic
+  tactic_local:
+    - meta_scope: meta.proof.coq
+    - meta_include_prototype: false
+    - match: '\]'
+      scope: punctuation.section.braces.begin.coq
+      pop: true
+    - include: tactic
+  tactic_paren:
+    - meta_scope: meta.proof.coq
+    - meta_include_prototype: false
+    - match: '\)'
+      scope: punctuation.section.parens.end.coq
+      pop: true
+    - include: tactic
+  tactic_term:
+    - match: '(?=[;|)\]])'
+      pop: true
+    - include: term
 
   # Other commands
   require:
