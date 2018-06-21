@@ -32,6 +32,7 @@
     { "trigger": "rewrite", "contents": "rewrite -> $1. $0" },
     { "trigger": "ring", "contents": "ring. $0" },
     { "trigger": "simpl", "contents": "simpl. $0" },
+    { "trigger": "symmetry", "contents": "symmetry. $0" },
     { "trigger": "tauto", "contents": "tauto. $0" },
     { "trigger": "trivial", "contents": "trivial. $0" },
     { "trigger": "try", "contents": "try $1. $0" },
