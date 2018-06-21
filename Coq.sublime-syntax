@@ -12,7 +12,7 @@ variables:
   dot: '\.(?![a-zA-Z_(])'
   accessor: '\.(?!\s)'
   hilight_type_base: '\s*((\.?{{ident}}|->|)\s*)+'
-  hilight_type_guard: '[,.:=)}\]|&]'
+  hilight_type_guard: '(?:[,.:)}\]|&]|=>)'
   hilight_type: '(?={{hilight_type_base}}{{hilight_type_guard}})'
   hilight_type_line: '(?={{hilight_type_base}}({{hilight_type_guard}}|$))'
   kw_term_binder: '(fun|forall|exists|exists2)'
