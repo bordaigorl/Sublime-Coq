@@ -27,7 +27,7 @@ class CoqtopManager:
         self.stack = []
         self.scope = 'toplevel'
 
-        self.settings = sublime.load_settings('Sublime-Coq.sublime-settings')
+        self.settings = sublime.load_settings('Coq.sublime-settings')
         self.settings.add_on_change('coq_debug', self._update_debug)
         self._update_debug()
 
@@ -42,7 +42,7 @@ class CoqtopManager:
         path = self.settings.get('coqtop_path') or find_coqtop()
         if path is None:
             sublime.error_message('Cannot find Coqtop.')
-            return False        
+            return False
         pwd = sublime.Window.folders(sublime.active_window())[0]
         args = ["-R", pwd, ""]
         args = self.settings.get('coqtop_args') + args
@@ -189,7 +189,7 @@ class CoqStartCommand(ManagerCommand):
 
             coqtop_group = window.num_groups() - 1
             coqtop_view = window.active_view_in_group(coqtop_group)
-            coqtop_view.set_syntax_file('Packages/Sublime-Coq/Coq Toplevel.sublime-syntax')
+            coqtop_view.set_syntax_file('Packages/Coq/Coq Toplevel.sublime-syntax')
             coqtop_view.set_name('*COQTOP*')
             coqtop_view.set_read_only(True)
             coqtop_view.set_scratch(True)
@@ -459,7 +459,7 @@ class CoqPanelCommand(CoqCommand):
         full_name = 'Coq {}'.format(name)
         window = self.view.window()
         panel = window.create_output_panel(full_name)
-        panel.set_syntax_file('Packages/Sublime-Coq/Coq {}.sublime-syntax'.format(syntax))
+        panel.set_syntax_file('Packages/Coq/Coq {}.sublime-syntax'.format(syntax))
         panel.set_read_only(True)
         panel.settings().set('is_widget', True)
         panel.settings().set('word_wrap', True)

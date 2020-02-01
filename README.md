@@ -7,6 +7,15 @@ Extensions to the Sublime Text 3 editor for use with the Coq Proof Assistant.
 
 [open an issue]: https://github.com/whitequark/Sublime-Coq
 
+Installation
+------------
+
+The recommended way to install Sublime Coq is to use [Package Control](https://packagecontrol.io/).
+
+It is also possible to install it using git. Navigate to the Sublime Text `Packages` folder, then run:
+
+    git clone git@github.com:whitequark/Sublime-Coq Coq
+
 Getting Started
 ---------------
 

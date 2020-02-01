@@ -1,36 +1,17 @@
 [
     {
-        "caption": "Preferences",
-        "mnemonic": "n",
         "id": "preferences",
-        "children":
-        [
+        "children": [
             {
-                "caption": "Package Settings",
-                "mnemonic": "P",
                 "id": "package-settings",
-                "children":
-                [
+                "children": [
                     {
-                        "caption": "Sublime-Coq",
-                        "children":
-                        [
-                            {
-                                "command": "open_file", "args":
-                                {
-                                    "file": "${packages}/Sublime-Coq/Sublime-Coq.sublime-settings"
-                                },
-                                "caption": "Settings – Default"
-                            },
-                            {
-                                "command": "open_file", "args":
-                                {
-                                    "file": "${packages}/User/Sublime-Coq.sublime-settings"
-                                },
-                                "caption": "Settings – User"
-                            },
-                            { "caption": "-" }
-                        ]
+                        "caption": "Coq",
+                        "command": "edit_settings",
+                        "args": {
+                            "base_file": "${packages}/Coq/Coq.sublime-settings",
+                            "default": "{\n\t$0\n}\n"
+                        }
                     }
                 ]
             }
