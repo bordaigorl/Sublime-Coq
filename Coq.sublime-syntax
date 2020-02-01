@@ -249,21 +249,22 @@ contexts:
       captures:
         1: storage.type.coq
         2: punctuation.accessor.coq
-    - match: '{{ident}}'
+    - match: '(?!{{kw_term}}){{ident}}'
       scope: storage.type.coq
     - include: term
 
   # Inductives
   inductive:
+    - match: ':='
+      scope: keyword.operator.coq
     - match: '\|'
       scope: keyword.operator.coq
-    - match: '{{ident}}'
+    - match: '(?!{{kw_term}}){{ident}}'
       scope: entity.name.function.coq
     - match: '{{colon}}'
       scope: punctuation.separator.coq
       push: inductive_type
-    - match: ':='
-      scope: keyword.operator.coq
+    - include: type
 
   inductive_type:
     - match: '\bwith{{b}}'
