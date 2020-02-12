@@ -28,7 +28,7 @@ variables:
   kw_definition: '(Theorem|Lemma|Remark|Fact|Corollary|Proposition|Example|Let|Definition|Fixpoint|CoFixpoint)'
   kw_inductive: '(Inductive|CoInductive)'
   kw_qed: '(Qed|Defined|Admitted|Save|Abort)'
-  kw_require: '(Require|Import|Export)'
+  kw_require: '(From|Require|Import|Export)'
   kw_other: '(Proof|Print|Check|Compute|Goal|Require)'
   kw_command: '({{kw_declaration}}|{{kw_definition}}|{{kw_inductive}}|{{kw_qed}}|{{kw_require}}|{{kw_other}})'
   tactic: '(admit|apply|assert|assumption|auto|autounfold|case|clear|compute|constructor|contradiction|dependent|destruct|discriminate|do|eapply|eauto|easy''?|exfalso|pose|elim|exact|exists|firstorder|generalize|give_up|induction|injection|inversion|into|intros|intro|intuition|omega|pattern|refine|reflexivity|rename|remember|repeat|replace|revert|rewrite|ring|set|simpl|specialize|split|symmetry|subst|tauto|trivial|try|unfold)'
@@ -78,7 +78,7 @@ contexts:
     - match: '\bGoal{{b}}'
       scope: keyword.coq
       push: [tactic, term]
-    - match: '\bRequire{{b}}'
+    - match: '\b(From|Require|Import){{b}}'
       scope: keyword.control.import.coq
       push: require
     - match: '\b{{ident}}{{b}}'
