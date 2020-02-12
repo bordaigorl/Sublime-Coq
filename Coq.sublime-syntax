@@ -6,10 +6,10 @@ scope: source.coq
 
 variables:
   integer: '(-?\d+)'
-  ident: '([a-zA-Z_][a-zA-Z0-9_'']*)'
+  ident: '([\w_][\w0-9_'']*)'
   b: '(?!'')\b'
   colon: ':(?![<>=:])'
-  dot: '\.(?![a-zA-Z_(])'
+  dot: '\.(?![\w_(])'
   accessor: '\.(?!\s)'
   hilight_type_base: '\s*((\.?{{ident}}|->|)\s*)+'
   hilight_type_guard: '(?:[,.:)}\]|&]|=>)'
