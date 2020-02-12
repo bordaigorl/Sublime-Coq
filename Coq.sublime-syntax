@@ -32,7 +32,7 @@ variables:
   kw_other: '(Proof|Print|Check|Compute|Goal|Require)'
   kw_command: '({{kw_declaration}}|{{kw_definition}}|{{kw_inductive}}|{{kw_qed}}|{{kw_require}}|{{kw_other}})'
   tactic: '(admit|apply|assert|assumption|auto|autounfold|case|clear|compute|constructor|contradiction|dependent|destruct|discriminate|do|eapply|eauto|easy''?|exfalso|pose|elim|exact|exists|firstorder|generalize|give_up|now|induction|injection|inversion|into|intros|intro|intuition|omega|pattern|refine|reflexivity|rename|remember|repeat|replace|revert|rewrite|ring|set|simpl|specialize|split|symmetry|subst|tauto|trivial|try|unfold)'
-  # command_other: '(About|Add|Admit|All|Arguments|Assumptions|Back|BackTo|Bind|Blacklist|Canonical|Cd|Check|Class|Classes|Close|Coercion|Coercions|Collection|Combined|Constant|Constraint|Constructor|Constructors|Context|Create|Cumulative|Declare|Delimit|Derive|Drop|End|Existential|Existing|Extract|Extraction|Fail|Field|File|Focus|Function|Functional|Generalizable|Global|Grab|Grammar|Graph|Guarded|Haskell|Heap|Hint|HintDb|Hints|Identity|If|Immediate|Implicit|Implicits|Include|Infix|Info|Initial|Inline|Inlined|Inspect|Instance|Inversion|Language|Left|Libraries|Library|Load|LoadPath|Local|Locate|Ltac|ML|Module|Modules|Monomorphic|Morphism|Next|No|NoInline|NonCumulative|Notation|OCaml|Obligation|Obligations|Opaque|Open|Optimize|Options|Parametric|Path|Paths|Polymorphic|Prenex|Preterm|Print|Printing|Profile|Program|Pwd|Quit|Rec|Record|Records|Recursive|Redirect|Reduction|Relation|Remove|Reset|Resolve|Restart|Rewrite|Right|Ring|Scheme|Scope|Search|SearchHead|SearchPattern|Separate|Set|Setoid|Section|Show|Signatures|Solve|Step|Strategy|Structure|Table|Tactic|Test|TestCompile|Time|Timeout|Transparent|Type|Typeclasses|Types|Undelimit|Undo|Unfocus|Unfocused|Unfold|Universe|Universes|Unset|Unshelve|Variant|View|Visibility)'
+  command_other: '(About|Add|Admit|All|Arguments|Assumptions|Back|BackTo|Bind|Blacklist|Canonical|Cd|Check|Class|Classes|Close|Coercion|Coercions|Collection|Combined|Constant|Constraint|Constructor|Constructors|Context|Create|Cumulative|Declare|Delimit|Derive|Drop|End|Existential|Existing|Extract|Extraction|Fail|Field|File|Focus|Function|Functional|Generalizable|Global|Grab|Grammar|Graph|Guarded|Haskell|Heap|Hint|HintDb|Hints|Identity|If|Immediate|Implicit|Implicits|Include|Infix|Info|Initial|Inline|Inlined|Inspect|Instance|Inversion|Language|Left|Libraries|Library|Load|LoadPath|Local|Locate|Ltac|ML|Module|Modules|Monomorphic|Morphism|Next|No|NoInline|NonCumulative|Notation|OCaml|Obligation|Obligations|Opaque|Open|Optimize|Options|Parametric|Path|Paths|Polymorphic|Prenex|Preterm|Print|Printing|Profile|Program|Pwd|Quit|Rec|Record|Records|Recursive|Redirect|Reduction|Relation|Remove|Reset|Resolve|Restart|Rewrite|Right|Ring|Scheme|Scope|Search|SearchHead|SearchPattern|Separate|Set|Setoid|Section|Show|Signatures|Solve|Step|Strategy|Structure|Table|Tactic|Test|TestCompile|Time|Timeout|Transparent|Type|Typeclasses|Types|Undelimit|Undo|Unfocus|Unfocused|Unfold|Universe|Universes|Unset|Unshelve|Variant|View|Visibility)'
 
 contexts:
   prototype:
@@ -81,12 +81,22 @@ contexts:
     - match: '\b(From|Require|Import){{b}}'
       scope: keyword.control.import.coq
       push: require
+    - match: '\b{{command_other}}{{b}}'
+      scope: keyword.control.other
+      push: ignore_until_dot
     - match: '\b{{ident}}{{b}}'
       scope: invalid.illegal.unknown-sentence.coq
       push: sentence_unknown
   sentence_unknown:
     - meta_scope: meta.sentence.coq
-    - match: '(?=\b{{kw_command}}\b)'
+    - match: '(?=\b{{kw_other}}\b)'
+      pop: true
+
+  ignore_until_dot:
+    - meta_scope: meta.sentence.other.coq
+    - include: string_begin
+    - include: comment_begin
+    - match: '{{dot}}'
       pop: true
 
   # Proofs
