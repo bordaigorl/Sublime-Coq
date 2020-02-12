@@ -44,14 +44,14 @@ contexts:
   # Illegal syntax
   illegal_punct:
     - match: '\)'
-      scope: invalid.illegal.stray-paren-end
+      # scope: invalid.illegal.stray-paren-end
     - match: '\}'
-      scope: invalid.illegal.stray-brace-end
+      # scope: invalid.illegal.stray-brace-end
     - match: '\]'
-      scope: invalid.illegal.stray-bracket-end
+      # scope: invalid.illegal.stray-bracket-end
   illegal_any:
     - match: '\S'
-      scope: invalid.illegal
+      # scope: invalid.illegal
 
   # Sentences
   main:
