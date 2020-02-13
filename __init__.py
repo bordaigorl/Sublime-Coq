@@ -264,6 +264,9 @@ class CoqCommand(ManagerCommand):
         if position is None:
             position = manager.position
         position = manager.editor_view.find(r'\s*', position).end()
+        # Bug in ST3: find returns Region(-1,-1) when not found
+        if position < 0 or position is None:
+            return None
         return manager.editor_view.find(re, position)
 
     def _substr_find_at_pos(self, re, position=None):
@@ -323,7 +326,7 @@ class CoqNextStatementCommand(CoqCommand):
 
         comment_region   = self._find_at_pos(RE_COMMENT)
         statement_region = self._find_statement()
-        regions = filter(lambda x: x, [comment_region, statement_region])
+        regions = list(filter(lambda x: x, [comment_region, statement_region]))
         if not regions:
             return
         region = min(regions, key=lambda x: x.begin())
