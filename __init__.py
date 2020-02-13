@@ -605,6 +605,8 @@ class CoqContext(sublime_plugin.EventListener):
             if (view.is_read_only() and view.sel()[0].begin() == manager.position and
                     command_name == 'insert'):
                 view.set_read_only(False)
+            if (command_name == 'undo' or command_name.startswith('redo')):
+                return ("echo", {})
 
     def _update_output(self, view):
         if (view.settings().get('coq') == 'output' or
