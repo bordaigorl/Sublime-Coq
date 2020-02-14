@@ -266,7 +266,10 @@ class CoqCommand(ManagerCommand):
         # Bug in ST3: find returns Region(-1,-1) when not found
         if position < 0 or position is None:
             return None
-        return manager.editor_view.find(re, position)
+        position = manager.editor_view.find(re, position)
+        if (position.a == -1 and position.b == -1) or position is None:
+            return None
+        return position
 
     def _substr_find_at_pos(self, re, position=None):
         manager = self._manager()
@@ -277,7 +280,7 @@ class CoqCommand(ManagerCommand):
     def _find_statement(self):
         manager = self._manager()
         region = self._find_at_pos(RE_STATEMENT)
-        while manager.editor_view.match_selector(region.end(), 'comment'):
+        while region and manager.editor_view.match_selector(region.end(), 'comment'):
             next_region = self._find_at_pos(RE_STATEMENT, region.end())
             if not next_region:
                 return
